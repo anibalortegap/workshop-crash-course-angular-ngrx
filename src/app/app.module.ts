@@ -7,22 +7,34 @@ import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/mate
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { BananaComponent } from './banana/banana.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { initialState, reducers, effects } from './app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { RotService } from './rot.service';
+
+
 
 @NgModule({
-  imports:      [ 
-    BrowserModule, 
+  imports: [
+    BrowserModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    StoreModule.forRoot(reducers, { initialState }),
+    EffectsModule.forRoot(effects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    })
   ],
-  declarations: [ 
-    AppComponent, 
-    BananaComponent 
+  declarations: [
+    AppComponent,
+    BananaComponent
   ],
-  bootstrap: [ 
-    AppComponent 
+  bootstrap: [
+    AppComponent
   ]
 })
 export class AppModule { }
